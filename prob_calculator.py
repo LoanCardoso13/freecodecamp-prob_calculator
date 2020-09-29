@@ -1,5 +1,5 @@
 import random
-# I believe this code can be perfected with the 'list comprehension' technique 
+
 class Hat:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
@@ -20,16 +20,17 @@ class Hat:
             self.contents.append(ball)
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    M = 0
-    for i in range(num_experiments):
-        count = 0
-        taken = hat.draw_balls(num_balls_drawn)
+    M = 0    # Variable to count number of positive experiments
+             # Perform experiment num_experiments times: 
+    for _ in range(num_experiments):
+        count = 0    # Count positive result for single color within experiment 
+        taken = hat.draw_balls(num_balls_drawn)    # Randomly taken from Hat.
         for color in expected_balls:
             if taken.count(color) >= expected_balls[color]:
                 count += 1
-        if count == len(expected_balls):
-            M += 1
-        hat.return_balls(taken)
-    probability = M / num_experiments
-    return probability
+        if count == len(expected_balls):           # Positive experiment is 
+            M += 1                                 # when all single color re-
+        hat.return_balls(taken)                    # sults were positive. Return  
+    probability = M / num_experiments              # balls to Hat after  
+    return probability                             # experiment. 
 
